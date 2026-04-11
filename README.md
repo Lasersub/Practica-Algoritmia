@@ -1,1 +1,6 @@
 # Practica-Algoritmia
+
+## Mejoras
+## comparador_voraz.py
+* [cite_start]**Eficiencia Algorítmica:** Tal y como refleja vuestro temario, la mejor implementación de este algoritmo voraz está dominada por la función de ordenación (`sorted()` en Python)[cite: 298]. [cite_start]Por lo tanto, la complejidad temporal de este script es de $O(n \log n)$, siendo $n$ el número de pedidos[cite: 298, 303]. [cite_start]El recorrido posterior del bucle `for` tiene un coste lineal de $O(n)$, que queda absorbido por el coste de la ordenación[cite: 308].
+* **Optimalidad vs. Programación Dinámica:** Es importante que documentéis en la práctica que, al ser el problema de la mochila discreto (los pedidos no se pueden fraccionar; o van enteros en el camión o no van), este algoritmo voraz **no siempre** encontrará la solución global óptima. Esa es precisamente su función como "mejora": servirá como un excelente punto de referencia (baseline) muy rápido de ejecutar, para compararlo con el tiempo y el resultado exacto que os dará vuestro módulo de Programación Dinámica (Fase 2).
