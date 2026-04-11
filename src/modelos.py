@@ -12,7 +12,18 @@ class Pedido:
     #ToString
     def __repr__(self):
         return f"Pedido(id={self.id}, p={self.peso}, b={self.beneficio})"
-    
+
+class GestorPedidos:
+    def __init__(self):
+        self.catalogo = [] # Inicializa la lista vacía
+
+    def agregar_pedido(self, pedido):
+        self.catalogo.append(pedido)
+
+    def mostrar_pedidos(self):
+        """Devuelve la representación de todos los pedidos."""
+        return self.catalogo 
+
 class GrafoUrbano:
     def __init__(self):
         # Usaremos un diccionario de diccionarios.
