@@ -1,15 +1,22 @@
 #Archivo donde van a ir las clases
 
-class Pedido:
+import random
 
-    #Constructor de la clase
-    def __init__(self, id_pedido, peso, beneficio):
+class Pedido:
+    # Constructor actualizado con valores opcionales (None)
+    def __init__(self, id_pedido, peso=None, beneficio=None):
         self.id = id_pedido
-        self.peso = peso
-        self.beneficio = beneficio
-        self.ratio = beneficio / peso if peso > 0 else 0 #Si peso es 0 la division daria error asi que devolvemos 0
+        
+        # Si no nos dan peso, inventamos uno entre 1 y 20 kg
+        self.peso = peso if peso is not None else random.randint(1, 20)
+        
+        # Si no nos dan beneficio, inventamos uno entre 10 y 100 €
+        self.beneficio = beneficio if beneficio is not None else random.randint(10, 100)
+        
+        # El cálculo del ratio se mantiene igual
+        self.ratio = self.beneficio / self.peso if self.peso > 0 else 0
     
-    #ToString
+    # ToString
     def __repr__(self):
         return f"Pedido(id={self.id}, p={self.peso}, b={self.beneficio})"
 
