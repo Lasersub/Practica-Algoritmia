@@ -1,6 +1,6 @@
 import random
 import json
-from src.modelos import GrafoUrbano, GestorPedidos, Pedido
+from modelos import GrafoUrbano, GestorPedidos, Pedido
 
 # ---------------------------------------------------------
 # 1. GENERADOR RECURSIVO (Mejora Tema 1)
@@ -74,4 +74,4 @@ if __name__ == "__main__":
     guardar_pedidos_escenario("escenario_basico.json", 1, 5)
     
     # Escenario Crítico 
-    guardar_pedidos_escenario("escenario_critico.json", 1, 50)
+    guardar_pedidos_escenario("escenario_capacidad.json", 1, 50)
