@@ -10,8 +10,8 @@ def generador_recursivo_escenarios(n, id_actual):
     if n == 0:
         return []
     
-    # El caso general: como actualizamos modelos.py (Paso 1), 
-    # si pasamos solo el ID, la clase Pedido ya genera peso y beneficio aleatorios.
+    # El caso general
+    # pasamos solo el ID, la clase Pedido ya genera peso y beneficio aleatorios.
     pedido_nuevo = Pedido(f"P{id_actual}")
     
     datos_pedido = {
@@ -25,7 +25,7 @@ def generador_recursivo_escenarios(n, id_actual):
 
 
 # ---------------------------------------------------------
-# 2. GENERADOR MASIVO PARA DEFENSA 
+# 2. GENERADOR MASIVO GRAFOS
 # ---------------------------------------------------------
 def GenerarGrafos(num_nodos=50, num_pedidos=50):
     """
@@ -50,23 +50,12 @@ def GenerarGrafos(num_nodos=50, num_pedidos=50):
             ciudad.agregar_arista(origen, destino, random.randint(5, 50))
             
     # B. Generar los Pedidos 
-    # Aprovechamos la recursividad que ya teníais hecha para generar los datos
     lista_diccionarios_pedidos = generador_recursivo_escenarios(num_pedidos, 1)
     
     gestor = GestorPedidos()
     for dict_p in lista_diccionarios_pedidos:
-        # Reconstruimos el objeto Pedido a partir de vuestro diccionario recursivo
+        # Reconstruimos el objeto Pedido
         p = Pedido(dict_p["id"], dict_p["peso"], dict_p["beneficio"])
         gestor.agregar_pedido(p)
         
     return ciudad, gestor
-
-if __name__ == "__main__":
-    # Prueba rápida de que ambas cosas funcionan
-    print("Test Recursivo (5 pedidos):")
-    print(generador_recursivo_escenarios(5, 1))
-    
-    print("\nTest Masivo Profesor (50 nodos / 50 pedidos):")
-    c, g = GenerarGrafos(50, 50)
-    print(c)
-    print(g)
