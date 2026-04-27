@@ -1,4 +1,5 @@
 import random
+import json
 from src.modelos import GrafoUrbano, GestorPedidos, Pedido
 
 # ---------------------------------------------------------
@@ -59,3 +60,18 @@ def GenerarGrafos(num_nodos=50, num_pedidos=50):
         gestor.agregar_pedido(p)
         
     return ciudad, gestor
+
+
+def guardar_pedidos_escenario(nombre_archivo, id_inicio, n):
+    print(f"Cargando {n} pedidos en {nombre_archivo}")
+    pedidos = generador_recursivo_escenarios(n, id_inicio)
+    with open(nombre_archivo, "w") as archivo:
+        json.dump(pedidos, archivo, indent=4)
+    print(f"Pedidos guardados de forma en correcta en {nombre_archivo}")
+
+if __name__ == "__main__":
+    # Escenario Básico
+    guardar_pedidos_escenario("escenario_basico.json", 1, 5)
+    
+    # Escenario Crítico 
+    guardar_pedidos_escenario("escenario_critico.json", 1, 50)
