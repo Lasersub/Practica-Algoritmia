@@ -26,32 +26,33 @@ class GestorPedidos:
 
 class GrafoUrbano:
     def __init__(self):
-        # Usaremos un diccionario de diccionarios.
-        # Estructura: { 'Origen': { 'Destino1': distancia, 'Destino2': distancia } }
+        # Estructura: { 'Origen': [('Destino1', distancia), ('Destino2', distancia)] }
         self.nodos = {}
 
     def agregar_nodo(self, id_nodo):
-        """Añade un punto de entrega o intersección a la ciudad."""
         if id_nodo not in self.nodos:
-            self.nodos[id_nodo] = {}
+            self.nodos[id_nodo] = [] # Ahora inicializamos con una lista vacía
 
     def agregar_arista(self, origen, destino, distancia):
-        """Conecta dos puntos con una distancia (peso)."""
-        # Nos aseguramos de que los nodos existan
         self.agregar_nodo(origen)
         self.agregar_nodo(destino)
         
-        # Como es una ciudad, asumimos calles de doble sentido (grafo no dirigido)
-        self.nodos[origen][destino] = distancia
-        self.nodos[destino][origen] = distancia
+        # Añadimos la tupla (destino, distancia) a la lista del origen
+        # Y viceversa, al ser un grafo no dirigido
+        self.nodos[origen].append((destino, distancia))
+        self.nodos[destino].append((origen, distancia))
 
     def obtener_distancia(self, origen, destino):
-        """Devuelve la distancia entre dos nodos, o infinito si no están conectados."""
-        return self.nodos.get(origen, {}).get(destino, float('inf')) #float('inf') devuelve infinito si los nodos no estan conectados
+        """Busca en la lista de tuplas del origen el destino indicado."""
+        vecinos = self.nodos.get(origen, [])
+        for v_id, dist in vecinos:
+            if v_id == destino:
+                return dist
+        return float('inf')
 
     def obtener_vecinos(self, nodo):
-        """Devuelve los nodos adyacentes a un nodo objetivo."""
-        return self.nodos.get(nodo, {}) #Devuelve diccionario vacio si no encuentra el nodo
+        """Devuelve la lista de tuplas directamente."""
+        return self.nodos.get(nodo, [])
 
     def __repr__(self):
         return f"GrafoUrbano(nodos={len(self.nodos)})"
