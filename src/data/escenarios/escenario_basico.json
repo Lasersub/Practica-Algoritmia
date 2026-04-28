@@ -1,0 +1,27 @@
+[
+    {
+        "id": "P1",
+        "peso": 6,
+        "beneficio": 22
+    },
+    {
+        "id": "P2",
+        "peso": 18,
+        "beneficio": 93
+    },
+    {
+        "id": "P3",
+        "peso": 19,
+        "beneficio": 49
+    },
+    {
+        "id": "P4",
+        "peso": 8,
+        "beneficio": 97
+    },
+    {
+        "id": "P5",
+        "peso": 12,
+        "beneficio": 76
+    }
+]

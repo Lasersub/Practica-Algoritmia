@@ -64,8 +64,9 @@ def GenerarGrafos(num_nodos=50, num_pedidos=50):
 
 def guardar_pedidos_escenario(nombre_archivo, id_inicio, n):
     print(f"Cargando {n} pedidos en {nombre_archivo}")
+    ruta_final = f"data/escenarios/{nombre_archivo}"
     pedidos = generador_recursivo_escenarios(n, id_inicio)
-    with open(nombre_archivo, "w") as archivo:
+    with open(ruta_final, "w") as archivo:
         json.dump(pedidos, archivo, indent=4)
     print(f"Pedidos guardados de forma en correcta en {nombre_archivo}")
 

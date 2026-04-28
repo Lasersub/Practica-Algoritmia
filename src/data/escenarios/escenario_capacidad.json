@@ -1,0 +1,252 @@
+[
+    {
+        "id": "P1",
+        "peso": 4,
+        "beneficio": 18
+    },
+    {
+        "id": "P2",
+        "peso": 6,
+        "beneficio": 27
+    },
+    {
+        "id": "P3",
+        "peso": 20,
+        "beneficio": 66
+    },
+    {
+        "id": "P4",
+        "peso": 13,
+        "beneficio": 88
+    },
+    {
+        "id": "P5",
+        "peso": 13,
+        "beneficio": 66
+    },
+    {
+        "id": "P6",
+        "peso": 11,
+        "beneficio": 16
+    },
+    {
+        "id": "P7",
+        "peso": 7,
+        "beneficio": 70
+    },
+    {
+        "id": "P8",
+        "peso": 14,
+        "beneficio": 55
+    },
+    {
+        "id": "P9",
+        "peso": 19,
+        "beneficio": 90
+    },
+    {
+        "id": "P10",
+        "peso": 20,
+        "beneficio": 11
+    },
+    {
+        "id": "P11",
+        "peso": 8,
+        "beneficio": 15
+    },
+    {
+        "id": "P12",
+        "peso": 14,
+        "beneficio": 34
+    },
+    {
+        "id": "P13",
+        "peso": 8,
+        "beneficio": 60
+    },
+    {
+        "id": "P14",
+        "peso": 10,
+        "beneficio": 61
+    },
+    {
+        "id": "P15",
+        "peso": 2,
+        "beneficio": 45
+    },
+    {
+        "id": "P16",
+        "peso": 19,
+        "beneficio": 26
+    },
+    {
+        "id": "P17",
+        "peso": 16,
+        "beneficio": 90
+    },
+    {
+        "id": "P18",
+        "peso": 1,
+        "beneficio": 79
+    },
+    {
+        "id": "P19",
+        "peso": 16,
+        "beneficio": 17
+    },
+    {
+        "id": "P20",
+        "peso": 20,
+        "beneficio": 10
+    },
+    {
+        "id": "P21",
+        "peso": 3,
+        "beneficio": 24
+    },
+    {
+        "id": "P22",
+        "peso": 4,
+        "beneficio": 24
+    },
+    {
+        "id": "P23",
+        "peso": 5,
+        "beneficio": 33
+    },
+    {
+        "id": "P24",
+        "peso": 13,
+        "beneficio": 81
+    },
+    {
+        "id": "P25",
+        "peso": 12,
+        "beneficio": 27
+    },
+    {
+        "id": "P26",
+        "peso": 2,
+        "beneficio": 38
+    },
+    {
+        "id": "P27",
+        "peso": 1,
+        "beneficio": 86
+    },
+    {
+        "id": "P28",
+        "peso": 18,
+        "beneficio": 62
+    },
+    {
+        "id": "P29",
+        "peso": 15,
+        "beneficio": 15
+    },
+    {
+        "id": "P30",
+        "peso": 13,
+        "beneficio": 15
+    },
+    {
+        "id": "P31",
+        "peso": 4,
+        "beneficio": 38
+    },
+    {
+        "id": "P32",
+        "peso": 20,
+        "beneficio": 27
+    },
+    {
+        "id": "P33",
+        "peso": 3,
+        "beneficio": 77
+    },
+    {
+        "id": "P34",
+        "peso": 8,
+        "beneficio": 42
+    },
+    {
+        "id": "P35",
+        "peso": 11,
+        "beneficio": 48
+    },
+    {
+        "id": "P36",
+        "peso": 15,
+        "beneficio": 59
+    },
+    {
+        "id": "P37",
+        "peso": 3,
+        "beneficio": 28
+    },
+    {
+        "id": "P38",
+        "peso": 1,
+        "beneficio": 50
+    },
+    {
+        "id": "P39",
+        "peso": 12,
+        "beneficio": 67
+    },
+    {
+        "id": "P40",
+        "peso": 15,
+        "beneficio": 14
+    },
+    {
+        "id": "P41",
+        "peso": 16,
+        "beneficio": 92
+    },
+    {
+        "id": "P42",
+        "peso": 17,
+        "beneficio": 85
+    },
+    {
+        "id": "P43",
+        "peso": 19,
+        "beneficio": 48
+    },
+    {
+        "id": "P44",
+        "peso": 20,
+        "beneficio": 38
+    },
+    {
+        "id": "P45",
+        "peso": 12,
+        "beneficio": 90
+    },
+    {
+        "id": "P46",
+        "peso": 10,
+        "beneficio": 79
+    },
+    {
+        "id": "P47",
+        "peso": 6,
+        "beneficio": 46
+    },
+    {
+        "id": "P48",
+        "peso": 1,
+        "beneficio": 68
+    },
+    {
+        "id": "P49",
+        "peso": 9,
+        "beneficio": 100
+    },
+    {
+        "id": "P50",
+        "peso": 10,
+        "beneficio": 89
+    }
+]
