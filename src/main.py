@@ -63,20 +63,25 @@ def ejecutar_sistema(opcion):
     # ---------------------------------------------------------
     # 2.5 PREPROCESADO (Mejora: Quicksort Multicriterio)
     # ---------------------------------------------------------
-    print("\n--- CATÁLOGO DE PEDIDOS (Ordenado por Prioridad) ---")
-    inicio_qs = time.perf_counter()
+    print("\n--- PREPARACIÓN DEL CATÁLOGO (Quicksort) ---")
+    print("Seleccione el criterio de prioridad para el catálogo:")
+    print(" 1. Mayor Beneficio")
+    print(" 2. Menor Peso")
+    print(" 3. Mayor Ratio (Beneficio/Peso)")
+    op_sort = input("Opción: ")
     
-    # Como el tuyo ordena in-place (modifica la lista original), basta con llamarlo
-    quicksort_multicriterio(pedidos_totales) 
-    tiempo_qs = time.perf_counter() - inicio_qs
-    
-    # Mostramos una muestra para confirmar que se ha ordenado bien
-    for p in pedidos_totales[:10]:
-        print(f"  > [Pedido {p.id}] Beneficio: {p.beneficio}€ | Peso: {p.peso}kg")
-    if len(pedidos_totales) > 10:
-        print(f"  > ... y {len(pedidos_totales) - 10} pedidos más.")
-    print(f"  [Tiempo de ordenación: {tiempo_qs:.6f}s]")
+    criterio = "beneficio"
+    if op_sort == "2": criterio = "peso"
+    elif op_sort == "3": criterio = "ratio"
 
+    inicio_qs = time.perf_counter()
+    quicksort_multicriterio(pedidos_totales, criterio=criterio)
+    t_qs = time.perf_counter() - inicio_qs
+
+    print(f" > Catálogo ordenado en {t_qs:.6f}s bajo criterio: {criterio}")
+    for p in pedidos_totales[:10]: # Muestra los 10 primeros pedidos tras ordenación
+        print(f"   [ID: {p.id}] {p.beneficio}€ | {p.peso}kg | Ratio: {p.ratio:.2f}")
+    
     # 3. SELECCIÓN (Fase 2)
     # AÑADIDO: Medición de tiempo para DP
     inicio_dp = time.perf_counter()

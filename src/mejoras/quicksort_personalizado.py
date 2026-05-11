@@ -1,62 +1,53 @@
-"""
-Módulo: quicksort_personalizado.py
-Descripción: Implementación del algoritmo Divide y Vencerás Quicksort para 
-             ordenar pedidos bajo múltiples criterios personalizados.
-"""
 
-def es_prioritario(pedido_a, pedido_b):
+def es_prioritario(pedido_a, pedido_b, criterio="beneficio"):
     """
-    Define qué pedido va antes basado en múltiples criterios.
-    Queremos orden DESCENDENTE de beneficio, luego DESCENDENTE de urgencia, 
-    y luego ASCENDENTE de distancia.
-    Devuelve True si pedido_a debe ir ANTES o en la MISMA posición que pedido_b.
+    Define qué pedido va antes basado en los atributos REALES de la clase Pedido.
     """
-    # 1. Criterio: Mayor beneficio
-    if pedido_a.beneficio != pedido_b.beneficio:
+    if criterio == "beneficio":
+        # 1. Mayor beneficio
+        if pedido_a.beneficio != pedido_b.beneficio:
+            return pedido_a.beneficio > pedido_b.beneficio
+        # 2. Desempate: Menor peso
+        if pedido_a.peso != pedido_b.peso:
+            return pedido_a.peso < pedido_b.peso
+        # 3. Desempate final: Mayor ratio
+        return pedido_a.ratio > pedido_b.ratio
+
+    elif criterio == "peso":
+        # 1. Menor peso
+        if pedido_a.peso != pedido_b.peso:
+            return pedido_a.peso < pedido_b.peso
+        # 2. Desempate: Mayor beneficio
         return pedido_a.beneficio > pedido_b.beneficio
-    
-    # 2. Criterio: Mayor urgencia (asumiendo que 10 es más urgente que 1)
-    if getattr(pedido_a, 'urgencia', 0) != getattr(pedido_b, 'urgencia', 0):
-        return getattr(pedido_a, 'urgencia', 0) > getattr(pedido_b, 'urgencia', 0)
-    
-    # 3. Criterio: Menor distancia (más cerca es mejor)
-    return getattr(pedido_a, 'distancia', float('inf')) < getattr(pedido_b, 'distancia', float('inf'))
+
+    elif criterio == "ratio":
+        # 1. Mayor ratio (rentabilidad)
+        if pedido_a.ratio != pedido_b.ratio:
+            return pedido_a.ratio > pedido_b.ratio
+        # 2. Desempate: Mayor beneficio absoluto
+        return pedido_a.beneficio > pedido_b.beneficio
 
 
-def particion(pedidos, inicio, fin):
-    """
-    Coloca el pivote en su posición definitiva. 
-    Los elementos prioritarios van a la izquierda, los demás a la derecha.
-    """
-    # Escogemos el último elemento como pivote (podría ser el primero como sugiere la teoría)
+def particion(pedidos, inicio, fin, criterio):
     pivote = pedidos[fin] 
     i = inicio - 1
-    
     for j in range(inicio, fin):
-        # Si el elemento actual es prioritario respecto al pivote, lo movemos a la izquierda
-        if es_prioritario(pedidos[j], pivote):
+        # Le pasamos el criterio al comparador
+        if es_prioritario(pedidos[j], pivote, criterio):
             i += 1
             pedidos[i], pedidos[j] = pedidos[j], pedidos[i]
-            
-    # Colocamos el pivote en su posición final
     pedidos[i + 1], pedidos[fin] = pedidos[fin], pedidos[i + 1]
     return i + 1
 
 
-def quicksort_multicriterio(pedidos, inicio=0, fin=None):
-    """
-    Función principal de ordenación recursiva.
-    """
+def quicksort_multicriterio(pedidos, inicio=0, fin=None, criterio="beneficio"):
     if fin is None:
         fin = len(pedidos) - 1
         
-    # Condición base: si el tamaño del vector es suficientemente pequeño (<=1), ya está ordenado
     if inicio < fin:
-        # Dividir: obtenemos la posición final del pivote
-        indice_pivote = particion(pedidos, inicio, fin)
-        
-        # Conquistar: llamadas recursivas a ambos lados del pivote
-        quicksort_multicriterio(pedidos, inicio, indice_pivote - 1)
-        quicksort_multicriterio(pedidos, indice_pivote + 1, fin)
+        # Pasamos el criterio a la partición
+        indice_pivote = particion(pedidos, inicio, fin, criterio)
+        quicksort_multicriterio(pedidos, inicio, indice_pivote - 1, criterio)
+        quicksort_multicriterio(pedidos, indice_pivote + 1, fin, criterio)
 
     return pedidos
