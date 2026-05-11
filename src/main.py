@@ -7,6 +7,8 @@ from utils.generador_escenarios import GenerarGrafos, guardar_pedidos_escenario
 from dp_selection import seleccionar_pedidos_dp
 from backtracking_ruta import calcular_ruta_tsp # <--- NUEVO: Importar ruteo
 from mejoras.comparador_voraz import seleccionar_pedidos_voraz
+from mejoras.quicksort_personalizado import quicksort_multicriterio
+
 
 def menu():
     print("\n" + "="*50)
@@ -57,6 +59,23 @@ def ejecutar_sistema(opcion):
     # NUEVO: Asignar destino a cada pedido antes de nada
     for i in range(len(pedidos_totales)):
         pedidos_totales[i].destino = f"Nodo_{i+1}"
+
+    # ---------------------------------------------------------
+    # 2.5 PREPROCESADO (Mejora: Quicksort Multicriterio)
+    # ---------------------------------------------------------
+    print("\n--- CATÁLOGO DE PEDIDOS (Ordenado por Prioridad) ---")
+    inicio_qs = time.perf_counter()
+    
+    # Como el tuyo ordena in-place (modifica la lista original), basta con llamarlo
+    quicksort_multicriterio(pedidos_totales) 
+    tiempo_qs = time.perf_counter() - inicio_qs
+    
+    # Mostramos una muestra para confirmar que se ha ordenado bien
+    for p in pedidos_totales[:10]:
+        print(f"  > [Pedido {p.id}] Beneficio: {p.beneficio}€ | Peso: {p.peso}kg")
+    if len(pedidos_totales) > 10:
+        print(f"  > ... y {len(pedidos_totales) - 10} pedidos más.")
+    print(f"  [Tiempo de ordenación: {tiempo_qs:.6f}s]")
 
     # 3. SELECCIÓN (Fase 2)
     # AÑADIDO: Medición de tiempo para DP
