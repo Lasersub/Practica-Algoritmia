@@ -36,7 +36,7 @@ def ejecutar_sistema(opcion):
     if opcion == "1":
         nombre, n, capacidad = "basico", 5, 30
     elif opcion == "2":
-        nombre, n, capacidad = "critico", 50, 100
+        nombre, n, capacidad = "capacidad", 50, 100
     elif opcion == "3":
         nombre, n, capacidad = "ruteo", 20, 80
     elif opcion == "4":
@@ -47,9 +47,12 @@ def ejecutar_sistema(opcion):
 
     print(f"\n--- EJECUTANDO: {nombre.upper()} ---")
 
+    nombre_archivo = f"escenario_{nombre}.json"
+    guardar_pedidos_escenario(nombre_archivo, 1, n) 
+    print(f"[Sistema] Archivo {nombre_archivo} generado y guardado.")
     # 2. CREACIÓN DE DATOS
     ciudad, gestor = GenerarGrafos(num_nodos=n, num_pedidos=n)
-    pedidos_totales = gestor.mostrar_pedidos()
+    pedidos_totales = cargar_pedidos_desde_escenario(nombre_archivo)
     
     # NUEVO: Asignar destino a cada pedido antes de nada
     for i in range(len(pedidos_totales)):

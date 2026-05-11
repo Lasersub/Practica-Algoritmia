@@ -1,27 +1,32 @@
 [
     {
         "id": "P1",
-        "peso": 3,
-        "beneficio": 31
+        "destino": "Nodo_1",
+        "peso": 8,
+        "beneficio": 40
     },
     {
         "id": "P2",
-        "peso": 9,
-        "beneficio": 32
+        "destino": "Nodo_2",
+        "peso": 19,
+        "beneficio": 78
     },
     {
         "id": "P3",
-        "peso": 15,
-        "beneficio": 13
+        "destino": "Nodo_3",
+        "peso": 17,
+        "beneficio": 92
     },
     {
         "id": "P4",
-        "peso": 19,
-        "beneficio": 46
+        "destino": "Nodo_4",
+        "peso": 15,
+        "beneficio": 60
     },
     {
         "id": "P5",
-        "peso": 16,
-        "beneficio": 77
+        "destino": "Nodo_5",
+        "peso": 17,
+        "beneficio": 23
     }
 ]

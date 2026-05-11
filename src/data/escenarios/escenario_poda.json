@@ -1,77 +1,92 @@
 [
     {
         "id": "P1",
-        "peso": 12,
-        "beneficio": 86
+        "destino": "Nodo_1",
+        "peso": 5,
+        "beneficio": 35
     },
     {
         "id": "P2",
-        "peso": 9,
-        "beneficio": 48
+        "destino": "Nodo_2",
+        "peso": 3,
+        "beneficio": 56
     },
     {
         "id": "P3",
-        "peso": 9,
-        "beneficio": 69
+        "destino": "Nodo_3",
+        "peso": 16,
+        "beneficio": 81
     },
     {
         "id": "P4",
-        "peso": 10,
-        "beneficio": 22
+        "destino": "Nodo_4",
+        "peso": 14,
+        "beneficio": 27
     },
     {
         "id": "P5",
-        "peso": 8,
-        "beneficio": 73
+        "destino": "Nodo_5",
+        "peso": 6,
+        "beneficio": 38
     },
     {
         "id": "P6",
-        "peso": 16,
-        "beneficio": 42
+        "destino": "Nodo_6",
+        "peso": 3,
+        "beneficio": 61
     },
     {
         "id": "P7",
+        "destino": "Nodo_7",
+        "peso": 17,
+        "beneficio": 19
+    },
+    {
+        "id": "P8",
+        "destino": "Nodo_8",
+        "peso": 14,
+        "beneficio": 38
+    },
+    {
+        "id": "P9",
+        "destino": "Nodo_9",
+        "peso": 16,
+        "beneficio": 84
+    },
+    {
+        "id": "P10",
+        "destino": "Nodo_10",
+        "peso": 20,
+        "beneficio": 93
+    },
+    {
+        "id": "P11",
+        "destino": "Nodo_11",
+        "peso": 1,
+        "beneficio": 47
+    },
+    {
+        "id": "P12",
+        "destino": "Nodo_12",
+        "peso": 14,
+        "beneficio": 80
+    },
+    {
+        "id": "P13",
+        "destino": "Nodo_13",
+        "peso": 10,
+        "beneficio": 10
+    },
+    {
+        "id": "P14",
+        "destino": "Nodo_14",
         "peso": 18,
         "beneficio": 44
     },
     {
-        "id": "P8",
-        "peso": 9,
-        "beneficio": 51
-    },
-    {
-        "id": "P9",
-        "peso": 11,
-        "beneficio": 70
-    },
-    {
-        "id": "P10",
-        "peso": 12,
-        "beneficio": 33
-    },
-    {
-        "id": "P11",
-        "peso": 5,
-        "beneficio": 69
-    },
-    {
-        "id": "P12",
-        "peso": 19,
-        "beneficio": 82
-    },
-    {
-        "id": "P13",
-        "peso": 9,
-        "beneficio": 28
-    },
-    {
-        "id": "P14",
-        "peso": 2,
-        "beneficio": 65
-    },
-    {
         "id": "P15",
-        "peso": 13,
-        "beneficio": 29
+        "destino": "Nodo_15",
+        "peso": 18,
+        "beneficio": 21
     }
 ]

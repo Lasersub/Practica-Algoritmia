@@ -1,102 +1,122 @@
 [
     {
         "id": "P1",
-        "peso": 18,
-        "beneficio": 38
-    },
-    {
-        "id": "P2",
-        "peso": 8,
-        "beneficio": 72
-    },
-    {
-        "id": "P3",
-        "peso": 19,
-        "beneficio": 99
-    },
-    {
-        "id": "P4",
-        "peso": 3,
-        "beneficio": 79
-    },
-    {
-        "id": "P5",
-        "peso": 20,
-        "beneficio": 59
-    },
-    {
-        "id": "P6",
-        "peso": 17,
-        "beneficio": 39
-    },
-    {
-        "id": "P7",
-        "peso": 2,
-        "beneficio": 93
-    },
-    {
-        "id": "P8",
-        "peso": 6,
-        "beneficio": 11
-    },
-    {
-        "id": "P9",
-        "peso": 6,
-        "beneficio": 73
-    },
-    {
-        "id": "P10",
-        "peso": 10,
-        "beneficio": 11
-    },
-    {
-        "id": "P11",
+        "destino": "Nodo_1",
         "peso": 5,
-        "beneficio": 10
-    },
-    {
-        "id": "P12",
-        "peso": 16,
-        "beneficio": 73
-    },
-    {
-        "id": "P13",
-        "peso": 16,
-        "beneficio": 54
-    },
-    {
-        "id": "P14",
-        "peso": 19,
-        "beneficio": 40
-    },
-    {
-        "id": "P15",
-        "peso": 2,
-        "beneficio": 80
-    },
-    {
-        "id": "P16",
-        "peso": 2,
-        "beneficio": 70
-    },
-    {
-        "id": "P17",
-        "peso": 18,
-        "beneficio": 72
-    },
-    {
-        "id": "P18",
-        "peso": 7,
-        "beneficio": 16
-    },
-    {
-        "id": "P19",
-        "peso": 4,
         "beneficio": 24
     },
     {
-        "id": "P20",
+        "id": "P2",
+        "destino": "Nodo_2",
+        "peso": 17,
+        "beneficio": 16
+    },
+    {
+        "id": "P3",
+        "destino": "Nodo_3",
+        "peso": 12,
+        "beneficio": 25
+    },
+    {
+        "id": "P4",
+        "destino": "Nodo_4",
+        "peso": 10,
+        "beneficio": 77
+    },
+    {
+        "id": "P5",
+        "destino": "Nodo_5",
+        "peso": 7,
+        "beneficio": 13
+    },
+    {
+        "id": "P6",
+        "destino": "Nodo_6",
+        "peso": 1,
+        "beneficio": 98
+    },
+    {
+        "id": "P7",
+        "destino": "Nodo_7",
+        "peso": 20,
+        "beneficio": 11
+    },
+    {
+        "id": "P8",
+        "destino": "Nodo_8",
+        "peso": 14,
+        "beneficio": 94
+    },
+    {
+        "id": "P9",
+        "destino": "Nodo_9",
+        "peso": 18,
+        "beneficio": 78
+    },
+    {
+        "id": "P10",
+        "destino": "Nodo_10",
+        "peso": 13,
+        "beneficio": 19
+    },
+    {
+        "id": "P11",
+        "destino": "Nodo_11",
+        "peso": 17,
+        "beneficio": 93
+    },
+    {
+        "id": "P12",
+        "destino": "Nodo_12",
+        "peso": 7,
+        "beneficio": 48
+    },
+    {
+        "id": "P13",
+        "destino": "Nodo_13",
         "peso": 6,
-        "beneficio": 49
+        "beneficio": 73
+    },
+    {
+        "id": "P14",
+        "destino": "Nodo_14",
+        "peso": 15,
+        "beneficio": 67
+    },
+    {
+        "id": "P15",
+        "destino": "Nodo_15",
+        "peso": 6,
+        "beneficio": 13
+    },
+    {
+        "id": "P16",
+        "destino": "Nodo_16",
+        "peso": 1,
+        "beneficio": 99
+    },
+    {
+        "id": "P17",
+        "destino": "Nodo_17",
+        "peso": 2,
+        "beneficio": 56
+    },
+    {
+        "id": "P18",
+        "destino": "Nodo_18",
+        "peso": 11,
+        "beneficio": 79
+    },
+    {
+        "id": "P19",
+        "destino": "Nodo_19",
+        "peso": 15,
+        "beneficio": 55
+    },
+    {
+        "id": "P20",
+        "destino": "Nodo_20",
+        "peso": 20,
+        "beneficio": 43
     }
 ]

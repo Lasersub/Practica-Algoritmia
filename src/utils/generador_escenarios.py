@@ -74,9 +74,3 @@ def guardar_pedidos_escenario(nombre_archivo, id_inicio, n):
         json.dump(pedidos, archivo, indent=4)
     print(f"Pedidos guardados de forma en correcta en {nombre_archivo}")
 
-if __name__ == "__main__":
-    # Escenario Básico
-    guardar_pedidos_escenario("escenario_basico.json", 1, 5)
-    
-    # Escenario Crítico 
-    guardar_pedidos_escenario("escenario_capacidad.json", 1, 50)
