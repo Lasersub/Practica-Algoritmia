@@ -1,5 +1,7 @@
 import os
 import json
+import time # <--- AÑADIDO: Importar time para mediciones
+
 from modelos import Pedido, GrafoUrbano, GestorPedidos
 from utils.generador_escenarios import GenerarGrafos, guardar_pedidos_escenario
 from dp_selection import seleccionar_pedidos_dp
@@ -54,14 +56,22 @@ def ejecutar_sistema(opcion):
         pedidos_totales[i].destino = f"Nodo_{i+1}"
 
     # 3. SELECCIÓN (Fase 2)
+    # AÑADIDO: Medición de tiempo para DP
+    inicio_dp = time.perf_counter()
     sel_dp, ben_dp, peso_dp = seleccionar_pedidos_dp(pedidos_totales, capacidad)
+    tiempo_dp = time.perf_counter() - inicio_dp
+    
+    # AÑADIDO: Medición de tiempo para Voraz
+    inicio_v = time.perf_counter()
     sel_v, ben_v, peso_v = seleccionar_pedidos_voraz(pedidos_totales, capacidad)
+    tiempo_v = time.perf_counter() - inicio_v
 
-    print(f"\n[DP] Beneficio: {ben_dp}€ | [Voraz] Beneficio: {ben_v}€")
+    # Modificado el print para mostrar los tiempos al lado del beneficio
+    print(f"\n[DP] Beneficio: {ben_dp}€ (Tiempo: {tiempo_dp:.6f}s) | [Voraz] Beneficio: {ben_v}€ (Tiempo: {tiempo_v:.6f}s)")
 
-    # ---------------------------------------------------------
-    # 4. RUTEO CON BACKTRACKING (Fase 3) - NUEVO
-    # ---------------------------------------------------------
+    # --------------------------------------
+    # 4. RUTEO CON BACKTRACKING (Fase 3)
+    # --------------------------------------
     print("\n--- OPTIMIZACIÓN DE RUTA (Backtracking) ---")
     
     # Extraemos solo los nombres de los nodos de los pedidos elegidos
@@ -70,12 +80,23 @@ def ejecutar_sistema(opcion):
     if len(destinos_a_visitar) > 0:
         # Llamamos al algoritmo de backtracking
         # Salida desde 'Nodo_1' (Almacén Central)
-        ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar)
+        
+        # AÑADIDO: Ejecución SIN poda para poder comparar tiempos
+        inicio_sin = time.perf_counter()
+        _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
+        tiempo_sin = time.perf_counter() - inicio_sin
+
+        # AÑADIDO: Ejecución CON poda (tu código original ajustado con timer)
+        inicio_con = time.perf_counter()
+        ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
+        tiempo_con = time.perf_counter() - inicio_con
         
         if ruta:
             print(f"  > Mejor ruta: {' -> '.join(ruta)}")
             print(f"  > Distancia total: {kms} km")
-            print(f"  > Nodos explorados: {explorados}")
+            # Modificados los prints para mostrar la comparativa
+            print(f"  > Nodos explorados (CON poda): {explorados} en {tiempo_con:.6f}s")
+            print(f"  > Nodos explorados (SIN poda): {exp_sin} en {tiempo_sin:.6f}s")
         else:
             print("  [!] No se pudo encontrar una ruta válida.")
     else:
