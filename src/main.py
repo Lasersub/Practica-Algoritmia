@@ -95,32 +95,58 @@ def ejecutar_sistema(opcion):
     # 4. RUTEO CON BACKTRACKING (Fase 3)
     # --------------------------------------
     print("\n--- OPTIMIZACIÓN DE RUTA (Backtracking) ---")
-    
-    # Extraemos solo los nombres de los nodos de los pedidos elegidos
-    destinos_a_visitar = [p.destino for p in sel_dp]
-    
-    if len(destinos_a_visitar) > 0:
-        # Llamamos al algoritmo de backtracking
-        # Salida desde 'Nodo_1' (Almacén Central)
-        
-        # AÑADIDO: Ejecución SIN poda para poder comparar tiempos
-        inicio_sin = time.perf_counter()
-        _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
-        tiempo_sin = time.perf_counter() - inicio_sin
 
-        # AÑADIDO: Ejecución CON poda (tu código original ajustado con timer)
-        inicio_con = time.perf_counter()
-        ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
-        tiempo_con = time.perf_counter() - inicio_con
-        
-        if ruta:
-            print(f"  > Mejor ruta: {' -> '.join(ruta)}")
-            print(f"  > Distancia total: {kms} km")
-            # Modificados los prints para mostrar la comparativa
-            print(f"  > Nodos explorados (CON poda): {explorados} en {tiempo_con:.6f}s")
-            print(f"  > Nodos explorados (SIN poda): {exp_sin} en {tiempo_sin:.6f}s")
+    destinos_a_visitar = [p.destino for p in sel_dp if p.destino != "Nodo_1"]
+
+    if len(destinos_a_visitar) > 0:
+        if opcion == "1":
+            inicio_sin = time.perf_counter()
+            _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
+            tiempo_sin = time.perf_counter() - inicio_sin
+
+            inicio_con = time.perf_counter()
+            ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
+            tiempo_con = time.perf_counter() - inicio_con
+
+            if ruta:
+                print(f"  > Mejor ruta: {' -> '.join(ruta)}")
+                print(f"  > Distancia total: {kms} km")
+                print(f"  > Nodos explorados (CON poda): {explorados} en {tiempo_con:.6f}s")
+                print(f"  > Nodos explorados (SIN poda): {exp_sin} en {tiempo_sin:.6f}s")
+            else:
+                print("  [!] No se pudo encontrar una ruta valida.")
+
+        elif opcion == "2":
+            x = len(destinos_a_visitar)
+            print(f"  [!] Escenario de estres para DP (N=50).")
+            print(f"  [!] La DP selecciono {x} pedidos con un beneficio optimo.")
+            print(f"  [!] TSP exacto omitido: con {x} destinos la explosion")
+            print(f"      combinatoria O(n!) hace inviable el ruteo exacto.")
+            print(f"      Consultar analisis de complejidad en el informe.")
+
         else:
-            print("  [!] No se pudo encontrar una ruta válida.")
+            CAP_TSP = 8
+            if len(destinos_a_visitar) > CAP_TSP:
+                print(f"  [!] Destinos seleccionados: {len(destinos_a_visitar)}.")
+                print(f"  [!] Aplicando cap de {CAP_TSP} destinos a ambas versiones")
+                print(f"      para garantizar una comparativa valida con/sin poda.")
+                destinos_a_visitar = destinos_a_visitar[:CAP_TSP]
+
+            inicio_sin = time.perf_counter()
+            _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
+            tiempo_sin = time.perf_counter() - inicio_sin
+
+            inicio_con = time.perf_counter()
+            ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
+            tiempo_con = time.perf_counter() - inicio_con
+
+            if ruta:
+                print(f"  > Mejor ruta: {' -> '.join(ruta)}")
+                print(f"  > Distancia total: {kms} km")
+                print(f"  > Nodos explorados (CON poda): {explorados} en {tiempo_con:.6f}s")
+                print(f"  > Nodos explorados (SIN poda): {exp_sin} en {tiempo_sin:.6f}s")
+            else:
+                print("  [!] No se pudo encontrar una ruta valida.")
     else:
         print("  [!] No hay pedidos seleccionados para repartir.")
 

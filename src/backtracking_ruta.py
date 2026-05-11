@@ -68,7 +68,7 @@ def calcular_ruta_tsp(grafo, origen, nodos_a_visitar, usar_poda=True):
             if dist_retorno != float('inf'):
                 if not usar_poda or distancia_total < mejor_distancia:
                     mejor_distancia = distancia_total
-                    mejor_ruta = ruta_actual + [origen]
+                    mejor_ruta = list(ruta_actual) if ruta_actual[-1] == origen else ruta_actual + [origen]
             return
 
         # 3. RECURSIÓN: Explorar todos los destinos no visitados directamente
