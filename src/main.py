@@ -84,6 +84,14 @@ def ejecutar_sistema(opcion):
     t_qs = time.perf_counter() - inicio_qs
 
     print(f" > Catálogo ordenado en {t_qs:.6f}s bajo criterio: {criterio}")
+
+    print("\n--- CATÁLOGO DE PEDIDOS (Ordenado por Prioridad) ---")
+    for p in pedidos_totales[:10]:
+        print(f"  > [Pedido {p.id}] Beneficio: {p.beneficio}€ | Peso: {p.peso}kg")
+    if len(pedidos_totales) > 10:
+        print(f"  > ... y {len(pedidos_totales) - 10} pedidos más.")
+    print(f"  [Tiempo de ordenación: {t_qs:.6f}s]")
+
     resumen_txt += f"Ordenación ({criterio}): {t_qs:.6f}s\n"
     
     # 3. SELECCIÓN (Fase 2)
