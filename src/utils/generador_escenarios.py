@@ -14,9 +14,11 @@ def generador_recursivo_escenarios(n, id_actual):
     # El caso general
     # pasamos solo el ID, la clase Pedido ya genera peso y beneficio aleatorios.
     pedido_nuevo = Pedido(f"P{id_actual}")
+    pedido_nuevo.destino = f"Nodo_{id_actual}"
     
     datos_pedido = {
         "id": pedido_nuevo.id,
+        "destino": pedido_nuevo.destino,
         "peso": pedido_nuevo.peso,
         "beneficio": pedido_nuevo.beneficio
     }

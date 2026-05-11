@@ -3,8 +3,8 @@ import json
 from modelos import Pedido, GrafoUrbano, GestorPedidos
 from utils.generador_escenarios import GenerarGrafos, guardar_pedidos_escenario
 from dp_selection import seleccionar_pedidos_dp
+from backtracking_ruta import calcular_ruta_tsp # <--- NUEVO: Importar ruteo
 from mejoras.comparador_voraz import seleccionar_pedidos_voraz
-from backtracking_ruta import calcular_ruta_tsp
 
 def menu():
     print("\n" + "="*50)
@@ -19,7 +19,18 @@ def menu():
     print("="*50)
     return input("Elige el escenario que quieres probar: ")
 
+# NUEVO: Función de carga actualizada para leer el destino del JSON
+def cargar_pedidos_desde_escenario(nombre_archivo):
+    ruta_final = f"data/escenarios/{nombre_archivo}"
+    if not os.path.exists(ruta_final): return []
+    
+    with open(ruta_final, "r") as archivo:
+        lista_dicts = json.load(archivo)
+    # Añadimos p.get('destino') para que no falle si no existe
+    return [Pedido(p['id'], p.get('destino', 'Desconocido'), p['peso'], p['beneficio']) for p in lista_dicts]
+
 def ejecutar_sistema(opcion):
+    # 1. CONFIGURACIÓN
     if opcion == "1":
         nombre, n, capacidad = "basico", 5, 30
     elif opcion == "2":
@@ -34,53 +45,50 @@ def ejecutar_sistema(opcion):
 
     print(f"\n--- EJECUTANDO: {nombre.upper()} ---")
 
-    # 1. CREACIÓN DE CIUDAD Y PEDIDOS (Sincronizados por nodo)
+    # 2. CREACIÓN DE DATOS
     ciudad, gestor = GenerarGrafos(num_nodos=n, num_pedidos=n)
-    
-    # Asignamos cada pedido a un nodo específico (P1 -> Nodo_1, etc.)
     pedidos_totales = gestor.mostrar_pedidos()
+    
+    # NUEVO: Asignar destino a cada pedido antes de nada
     for i in range(len(pedidos_totales)):
         pedidos_totales[i].destino = f"Nodo_{i+1}"
 
-    # 2. GUARDADO Y MOSTRAR DISTRIBUCIÓN
-    guardar_pedidos_escenario(fichero := f"escenario_{nombre}.json", 1, n)
-    print("\n[*] Ubicación de los pedidos en la ciudad:")
-    for p in pedidos_totales:
-        print(f"  - El {p.id} debe entregarse en el {p.destino}")
-
-    # 3. SELECCIÓN (DP vs VORAZ)
-    print("\n" + "-"*45 + "\n--- ANÁLISIS DE SELECCIÓN ---\n" + "-"*45)
+    # 3. SELECCIÓN (Fase 2)
     sel_dp, ben_dp, peso_dp = seleccionar_pedidos_dp(pedidos_totales, capacidad)
     sel_v, ben_v, peso_v = seleccionar_pedidos_voraz(pedidos_totales, capacidad)
 
-    print(f"{'ALGORITMO':<15} | {'BENEFICIO':<10} | {'PESO':<10} | {'PEDIDOS'}")
-    print(f"{'P. Dinámica':<15} | {ben_dp:<10} | {peso_dp:<10} | {len(sel_dp)}")
-    print(f"{'Voraz':<15} | {ben_v:<10} | {peso_v:<10} | {len(sel_v)}")
+    print(f"\n[DP] Beneficio: {ben_dp}€ | [Voraz] Beneficio: {ben_v}€")
 
-    # 4. RUTEO (Backtracking)
-    print("\n" + "-"*45 + "\n--- OPTIMIZACIÓN DE RUTA (Backtracking) ---\n" + "-"*45)
+    # ---------------------------------------------------------
+    # 4. RUTEO CON BACKTRACKING (Fase 3) - NUEVO
+    # ---------------------------------------------------------
+    print("\n--- OPTIMIZACIÓN DE RUTA (Backtracking) ---")
     
-    # Extraemos los nombres de los nodos donde hay que entregar
+    # Extraemos solo los nombres de los nodos de los pedidos elegidos
     destinos_a_visitar = [p.destino for p in sel_dp]
     
-    # Llamamos a tu compañero (Backtracking)
-    ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar)
-
-    if ruta:
-        print(f"[✓] Mejor ruta encontrada: {' -> '.join(ruta)}")
-        print(f"[✓] Distancia total: {kms} km")
-        print(f"[i] Nodos explorados por el algoritmo: {explorados}")
+    if len(destinos_a_visitar) > 0:
+        # Llamamos al algoritmo de backtracking
+        # Salida desde 'Nodo_1' (Almacén Central)
+        ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar)
+        
+        if ruta:
+            print(f"  > Mejor ruta: {' -> '.join(ruta)}")
+            print(f"  > Distancia total: {kms} km")
+            print(f"  > Nodos explorados: {explorados}")
+        else:
+            print("  [!] No se pudo encontrar una ruta válida.")
     else:
-        print("[!] No se encontró una ruta válida que conecte todos los puntos.")
+        print("  [!] No hay pedidos seleccionados para repartir.")
 
     input("\nPresiona Enter para continuar...")
 
 def main():
     if not os.path.exists("data/escenarios"): os.makedirs("data/escenarios")
     while True:
-        opc = menu()
-        if opc == "6": break
-        elif opc in "12345": ejecutar_sistema(opc)
+        opcion = menu()
+        if opcion == "6": break
+        elif opcion in "12345": ejecutar_sistema(opcion)
 
 if __name__ == "__main__":
     main()
