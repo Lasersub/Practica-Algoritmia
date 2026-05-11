@@ -1,2 +1,13 @@
 src/__pycache__/modelos.cpython-313.pyc
 src/__pycache__/modelos.cpython-313.pyc
+data/escenarios/escenario_critico.json
+data/escenarios/escenario_libre.json
+data/escenarios/escenario_poda.json
+data/escenarios/escenario_ruteo.json
+src/__pycache__/backtracking_ruta.cpython-313.pyc
+src/__pycache__/dp_selection.cpython-313.pyc
+src/__pycache__/modelos.cpython-313.pyc
+src/mejoras/__pycache__/comparador_voraz.cpython-313.pyc
+src/__pycache__/modelos.cpython-313.pyc
+src/utils/__pycache__/generador_escenarios.cpython-313.pyc
+src/__pycache__/modelos.cpython-313.pyc
