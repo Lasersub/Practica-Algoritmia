@@ -3,9 +3,12 @@
 import random
 
 class Pedido:
-    # Constructor actualizado con valores opcionales (None)
-    def __init__(self, id_pedido, peso=None, beneficio=None):
+    # Constructor actualizado con el atributo 'destino'
+    def __init__(self, id_pedido, destino=None, peso=None, beneficio=None):
         self.id = id_pedido
+        
+        # Si no nos dan destino, le ponemos "Desconocido" por defecto
+        self.destino = destino if destino is not None else "Desconocido"
         
         # Si no nos dan peso, inventamos uno entre 1 y 20 kg
         self.peso = peso if peso is not None else random.randint(1, 20)
@@ -16,9 +19,9 @@ class Pedido:
         # El cálculo del ratio se mantiene igual
         self.ratio = self.beneficio / self.peso if self.peso > 0 else 0
     
-    # ToString
+    # ToString actualizado
     def __repr__(self):
-        return f"Pedido(id={self.id}, p={self.peso}, b={self.beneficio})"
+        return f"Pedido(id={self.id}, dest={self.destino}, p={self.peso}, b={self.beneficio})"
 
 class GestorPedidos:
     def __init__(self):
