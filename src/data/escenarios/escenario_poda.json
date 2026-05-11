@@ -1,0 +1,77 @@
+[
+    {
+        "id": "P1",
+        "peso": 12,
+        "beneficio": 86
+    },
+    {
+        "id": "P2",
+        "peso": 9,
+        "beneficio": 48
+    },
+    {
+        "id": "P3",
+        "peso": 9,
+        "beneficio": 69
+    },
+    {
+        "id": "P4",
+        "peso": 10,
+        "beneficio": 22
+    },
+    {
+        "id": "P5",
+        "peso": 8,
+        "beneficio": 73
+    },
+    {
+        "id": "P6",
+        "peso": 16,
+        "beneficio": 42
+    },
+    {
+        "id": "P7",
+        "peso": 18,
+        "beneficio": 44
+    },
+    {
+        "id": "P8",
+        "peso": 9,
+        "beneficio": 51
+    },
+    {
+        "id": "P9",
+        "peso": 11,
+        "beneficio": 70
+    },
+    {
+        "id": "P10",
+        "peso": 12,
+        "beneficio": 33
+    },
+    {
+        "id": "P11",
+        "peso": 5,
+        "beneficio": 69
+    },
+    {
+        "id": "P12",
+        "peso": 19,
+        "beneficio": 82
+    },
+    {
+        "id": "P13",
+        "peso": 9,
+        "beneficio": 28
+    },
+    {
+        "id": "P14",
+        "peso": 2,
+        "beneficio": 65
+    },
+    {
+        "id": "P15",
+        "peso": 13,
+        "beneficio": 29
+    }
+]

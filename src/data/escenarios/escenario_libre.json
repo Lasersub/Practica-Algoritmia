@@ -1,0 +1,52 @@
+[
+    {
+        "id": "P1",
+        "peso": 6,
+        "beneficio": 80
+    },
+    {
+        "id": "P2",
+        "peso": 6,
+        "beneficio": 15
+    },
+    {
+        "id": "P3",
+        "peso": 7,
+        "beneficio": 63
+    },
+    {
+        "id": "P4",
+        "peso": 4,
+        "beneficio": 44
+    },
+    {
+        "id": "P5",
+        "peso": 16,
+        "beneficio": 84
+    },
+    {
+        "id": "P6",
+        "peso": 10,
+        "beneficio": 71
+    },
+    {
+        "id": "P7",
+        "peso": 15,
+        "beneficio": 41
+    },
+    {
+        "id": "P8",
+        "peso": 9,
+        "beneficio": 93
+    },
+    {
+        "id": "P9",
+        "peso": 1,
+        "beneficio": 17
+    },
+    {
+        "id": "P10",
+        "peso": 19,
+        "beneficio": 98
+    }
+]

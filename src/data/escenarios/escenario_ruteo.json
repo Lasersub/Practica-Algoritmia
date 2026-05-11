@@ -1,0 +1,102 @@
+[
+    {
+        "id": "P1",
+        "peso": 18,
+        "beneficio": 38
+    },
+    {
+        "id": "P2",
+        "peso": 8,
+        "beneficio": 72
+    },
+    {
+        "id": "P3",
+        "peso": 19,
+        "beneficio": 99
+    },
+    {
+        "id": "P4",
+        "peso": 3,
+        "beneficio": 79
+    },
+    {
+        "id": "P5",
+        "peso": 20,
+        "beneficio": 59
+    },
+    {
+        "id": "P6",
+        "peso": 17,
+        "beneficio": 39
+    },
+    {
+        "id": "P7",
+        "peso": 2,
+        "beneficio": 93
+    },
+    {
+        "id": "P8",
+        "peso": 6,
+        "beneficio": 11
+    },
+    {
+        "id": "P9",
+        "peso": 6,
+        "beneficio": 73
+    },
+    {
+        "id": "P10",
+        "peso": 10,
+        "beneficio": 11
+    },
+    {
+        "id": "P11",
+        "peso": 5,
+        "beneficio": 10
+    },
+    {
+        "id": "P12",
+        "peso": 16,
+        "beneficio": 73
+    },
+    {
+        "id": "P13",
+        "peso": 16,
+        "beneficio": 54
+    },
+    {
+        "id": "P14",
+        "peso": 19,
+        "beneficio": 40
+    },
+    {
+        "id": "P15",
+        "peso": 2,
+        "beneficio": 80
+    },
+    {
+        "id": "P16",
+        "peso": 2,
+        "beneficio": 70
+    },
+    {
+        "id": "P17",
+        "peso": 18,
+        "beneficio": 72
+    },
+    {
+        "id": "P18",
+        "peso": 7,
+        "beneficio": 16
+    },
+    {
+        "id": "P19",
+        "peso": 4,
+        "beneficio": 24
+    },
+    {
+        "id": "P20",
+        "peso": 6,
+        "beneficio": 49
+    }
+]

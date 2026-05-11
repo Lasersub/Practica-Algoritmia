@@ -1,27 +1,27 @@
 [
     {
         "id": "P1",
-        "peso": 6,
-        "beneficio": 22
+        "peso": 3,
+        "beneficio": 31
     },
     {
         "id": "P2",
-        "peso": 18,
-        "beneficio": 93
+        "peso": 9,
+        "beneficio": 32
     },
     {
         "id": "P3",
-        "peso": 19,
-        "beneficio": 49
+        "peso": 15,
+        "beneficio": 13
     },
     {
         "id": "P4",
-        "peso": 8,
-        "beneficio": 97
+        "peso": 19,
+        "beneficio": 46
     },
     {
         "id": "P5",
-        "peso": 12,
-        "beneficio": 76
+        "peso": 16,
+        "beneficio": 77
     }
 ]
