@@ -2,28 +2,27 @@ import os
 import json
 import time
 import random
-
+ 
 from modelos import Pedido, GrafoUrbano, GestorPedidos
 from utils.generador_escenarios import GenerarGrafos, guardar_pedidos_escenario
 from dp_selection import seleccionar_pedidos_dp
 from backtracking_ruta import calcular_ruta_tsp
 from mejoras.comparador_voraz import seleccionar_pedidos_voraz
 from mejoras.quicksort_personalizado import quicksort_multicriterio
-
-
-def menu():
-
+ 
+ 
+def menu(modo):
+    label2 = "DP vs Voraz    (N=10)" if modo == "1" else "Capacidad Crítica (N=50)"
     print("--- SISTEMA LOGÍSTICO UAH-ROUTE ---")
-
     print("1. Escenario 1: Básico (N=5)")
-    print("2. Escenario 2: Capacidad Crítica (N=50)")
+    print(f"2. Escenario 2: {label2}")
     print("3. Escenario 3: Ruteo Complejo (N=20)")
     print("4. Escenario 4: Escenario de Poda (N=15)")
     print("5. Escenario 5: Escenario Libre")
     print("6. Salir")
   
     return input("Elige el escenario que quieres probar: ")
-
+ 
 # Función de carga para leer el destino del JSON
 def cargar_pedidos_desde_escenario(nombre_archivo):
     ruta_final = f"data/escenarios/{nombre_archivo}"
@@ -33,8 +32,8 @@ def cargar_pedidos_desde_escenario(nombre_archivo):
         lista_dicts = json.load(archivo)
     # Añadimos p.get('destino') para que no falle si no existe
     return [Pedido(p['id'], p.get('destino', 'Desconocido'), p['peso'], p['beneficio']) for p in lista_dicts]
-
-def ejecutar_sistema(opcion):
+ 
+def ejecutar_sistema(opcion, modo):
     #1. CONFIGURACIÓN
     if opcion == "1":
         nombre, n, capacidad = "basico", 5, 30
@@ -47,24 +46,79 @@ def ejecutar_sistema(opcion):
     elif opcion == "5":
         nombre, n, capacidad = "libre", 10, 50
     else: return
-
+ 
     print(f"\n--- EJECUTANDO: {nombre.upper()} ---")
-
-
+ 
+    #2. CREACIÓN DE DATOS (según modo)
+    if modo == "1":
+        print("[Modo Demostración] Datos fijos cargados.")
+        if opcion == "1":
+            n, capacidad = 5, 30
+            pedidos_totales = [
+                Pedido('P1', 'Nodo_1', 15, 84),
+                Pedido('P2', 'Nodo_2', 9,  73),
+                Pedido('P3', 'Nodo_3', 5,  72),
+                Pedido('P4', 'Nodo_4', 4,  59),
+                Pedido('P5', 'Nodo_5', 15, 61),
+            ]
+        elif opcion == "2":
+            n, capacidad = 10, 15
+            pedidos_totales = [
+                Pedido('P1',  'Nodo_1',  1,  6),
+                Pedido('P2',  'Nodo_2',  2, 10),
+                Pedido('P3',  'Nodo_3',  3, 12),
+                Pedido('P4',  'Nodo_4',  5, 17),
+                Pedido('P5',  'Nodo_5',  2,  8),
+                Pedido('P6',  'Nodo_6',  4, 14),
+                Pedido('P7',  'Nodo_7',  3, 11),
+                Pedido('P8',  'Nodo_8',  6, 19),
+                Pedido('P9',  'Nodo_9',  2,  9),
+                Pedido('P10', 'Nodo_10', 4, 13),
+            ]
+        elif opcion == "3":
+            n, capacidad = 6, 20
+            pedidos_totales = [
+                Pedido('P1', 'Nodo_1', 4,  20),
+                Pedido('P2', 'Nodo_2', 3,  15),
+                Pedido('P3', 'Nodo_3', 2,  12),
+                Pedido('P4', 'Nodo_4', 5,  18),
+                Pedido('P5', 'Nodo_5', 3,  14),
+                Pedido('P6', 'Nodo_6', 4,  16),
+            ]
+        elif opcion == "4":
+            n, capacidad = 6, 15
+            pedidos_totales = [
+                Pedido('P1', 'Nodo_1', 1,  6),
+                Pedido('P2', 'Nodo_2', 2,  10),
+                Pedido('P3', 'Nodo_3', 3,  12),
+                Pedido('P4', 'Nodo_4', 2,  8),
+                Pedido('P5', 'Nodo_5', 4,  14),
+                Pedido('P6', 'Nodo_6', 3,  9),
+            ]
+        elif opcion == "5":
+            n, capacidad = 5, 20
+            pedidos_totales = [
+                Pedido('P1', 'Nodo_1', 2,  10),
+                Pedido('P2', 'Nodo_2', 3,  14),
+                Pedido('P3', 'Nodo_3', 4,  16),
+                Pedido('P4', 'Nodo_4', 1,  7),
+                Pedido('P5', 'Nodo_5', 5,  18),
+            ]
+        random.seed(42)
+        ciudad, _ = GenerarGrafos(num_nodos=n, num_pedidos=0)
+    else:  # modo == "2"
+        print("[Modo Generación] Generando datos aleatorios...")
+        nombre_archivo = f"escenario_{nombre}.json"
+        guardar_pedidos_escenario(nombre_archivo, 1, n)
+        print(f"[Sistema] Archivo {nombre_archivo} generado y guardado.")
+        ciudad, _ = GenerarGrafos(num_nodos=n, num_pedidos=0)
+        pedidos_totales = cargar_pedidos_desde_escenario(nombre_archivo)
+        #Asignamos destino a cada pedido
+        for i in range(len(pedidos_totales)):
+            pedidos_totales[i].destino = f"Nodo_{i+1}"
+ 
     resumen_txt = f"ESCENARIO: {nombre.upper()} | N={n} | Capacidad={capacidad}kg\n"
-
-    nombre_archivo = f"escenario_{nombre}.json"
-    guardar_pedidos_escenario(nombre_archivo, 1, n) 
-    print(f"Archivo {nombre_archivo} generado y guardado.")
-    
-    #2. CREACIÓN DE DATOS
-    ciudad, _ = GenerarGrafos(num_nodos=n, num_pedidos=0)
-    pedidos_totales = cargar_pedidos_desde_escenario(nombre_archivo)
-    
-    #Asignamos destino a cada pedido
-    for i in range(len(pedidos_totales)):
-        pedidos_totales[i].destino = f"Nodo_{i+1}"
-
+ 
     #Mejora Quicksort
     print("\n--- PREPARACIÓN DEL CATÁLOGO (Quicksort) ---")
     print("Seleccione el criterio de prioridad para el catálogo:")
@@ -76,20 +130,20 @@ def ejecutar_sistema(opcion):
     criterio = "beneficio"
     if op_sort == "2": criterio = "peso"
     elif op_sort == "3": criterio = "ratio"
-
+ 
     inicio_qs = time.perf_counter()
     quicksort_multicriterio(pedidos_totales, criterio=criterio)
     t_qs = time.perf_counter() - inicio_qs
-
+ 
     print(f" > Catálogo ordenado en {t_qs:.6f}s bajo criterio: {criterio}")
-
+ 
     print("\n--- CATÁLOGO DE PEDIDOS (Ordenado por Prioridad) ---")
     for p in pedidos_totales[:10]:
         print(f"  > [Pedido {p.id}] Beneficio: {p.beneficio}€ | Peso: {p.peso}kg")
     if len(pedidos_totales) > 10:
         print(f"  > ... y {len(pedidos_totales) - 10} pedidos más.")
     print(f"  [Tiempo de ordenación: {t_qs:.6f}s]")
-
+ 
     resumen_txt += f"Ordenación ({criterio}): {t_qs:.6f}s\n"
     
     # 3. SELECCIÓN (Fase 2)
@@ -100,25 +154,25 @@ def ejecutar_sistema(opcion):
     inicio_v = time.perf_counter()
     sel_v, ben_v, peso_v = seleccionar_pedidos_voraz(pedidos_totales, capacidad)
     tiempo_v = time.perf_counter() - inicio_v
-
+ 
     print(f"\n[PD] Beneficio: {ben_dp}€ ({tiempo_dp:.6f}s) | [Voraz] Beneficio: {ben_v}€ ({tiempo_v:.6f}s)")
     resumen_txt += f"PD: {ben_dp}€ ({tiempo_dp:.6f}s) | Voraz: {ben_v}€ ({tiempo_v:.6f}s)\n"
-
+ 
     # 4. RUTEO CON BACKTRACKING (Fase 3)
     print("\n--- OPTIMIZACIÓN DE RUTA (Backtracking) ---")
     destinos_a_visitar = [p.destino for p in sel_dp if p.destino != "Nodo_1"]
     resumen_ruteo = ""
-
+ 
     if len(destinos_a_visitar) > 0:
         if opcion == "1":
             inicio_sin = time.perf_counter()
             _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
             tiempo_sin = time.perf_counter() - inicio_sin
-
+ 
             inicio_con = time.perf_counter()
             ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
             tiempo_con = time.perf_counter() - inicio_con
-
+ 
             if ruta:
                 print(f"  > Mejor ruta: {' -> '.join(ruta)}")
                 print(f"  > Distancia total: {kms} km")
@@ -127,26 +181,26 @@ def ejecutar_sistema(opcion):
                 resumen_ruteo = f"Ruta: {kms}km | Poda: {explorados} n. | Sin Poda: {exp_sin} n."
             else:
                 resumen_ruteo = "No se pudo encontrar una ruta válida."
-
-        elif opcion == "2":
+ 
+        elif opcion == "2" and modo == "2":
             x = len(destinos_a_visitar)
             resumen_ruteo = f"TSP omitido (N={x} destinos) por complejidad O(n!)."
             print(f"   {resumen_ruteo}")
-
+ 
         else:
             CAP_TSP = 8
             if len(destinos_a_visitar) > CAP_TSP:
                 print(f"   Limitando a {CAP_TSP} destinos para la comparativa.")
                 destinos_a_visitar = destinos_a_visitar[:CAP_TSP]
-
+ 
             inicio_sin = time.perf_counter()
             _, _, exp_sin = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=False)
             tiempo_sin = time.perf_counter() - inicio_sin
-
+ 
             inicio_con = time.perf_counter()
             ruta, kms, explorados = calcular_ruta_tsp(ciudad, "Nodo_1", destinos_a_visitar, usar_poda=True)
             tiempo_con = time.perf_counter() - inicio_con
-
+ 
             if ruta:
                 print(f"  > Mejor ruta: {' -> '.join(ruta)}")
                 print(f"  > Distancia total: {kms} km")
@@ -158,9 +212,9 @@ def ejecutar_sistema(opcion):
     else:
         resumen_ruteo = "No hay pedidos seleccionados."
         print(f"   {resumen_ruteo}")
-
+ 
     resumen_txt += f"Ruteo: {resumen_ruteo}\n"
-
+ 
     #Guardado final en .txt
     # Obtenemos la ruta absoluta de la carpeta donde está este main.py
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
@@ -169,8 +223,8 @@ def ejecutar_sistema(opcion):
     # Aseguramos que la carpeta data existe
     os.makedirs(os.path.join(directorio_actual, "data"), exist_ok=True)
     
-    print("\nIntentando escribir en: resultados.txt")
-
+    print(f"\nIntentando escribir en: {ruta_txt}")
+ 
     try:
         # Abrimos en modo 'a+' (añadir y leer) para forzar la creación si no existe
         with open(ruta_txt, "a+", encoding="utf-8") as f:
@@ -187,20 +241,34 @@ def ejecutar_sistema(opcion):
         print(f"EXITO: Se han escrito los datos de forma correcta en el archivo.")
     except Exception as e:
         print(f"ERROR CRÍTICO al escribir el archivo: {e}")
-
+ 
     print(f"\nProceso finalizado. Revisa el archivo resultados.txt para ver lo obtenido.")
     input("\nPresiona Enter para volver al menú...")
-
+ 
 def main():
     random.seed(time.time())
     if not os.path.exists("data/escenarios"): 
         os.makedirs("data/escenarios")
+ 
+    print("\n" + "="*50)
+    print("      SISTEMA LOGÍSTICO UAH-ROUTE (2025-26)")
+    print("="*50)
+    print("  MODO DE EJECUCIÓN:")
+    print("  1. Demostración  (datos fijos, resultados reproducibles)")
+    print("  2. Generación    (datos aleatorios, prueba de escalabilidad)")
+    print("="*50)
+    modo = input("Selecciona el modo: ")
+    if modo not in ("1", "2"):
+        print("Modo no válido. Saliendo.")
+        return
+ 
     while True:
-        opcion = menu()
+        opcion = menu(modo)
         if opcion == "6": 
             break
         elif opcion in "12345": 
-            ejecutar_sistema(opcion)
-
+            ejecutar_sistema(opcion, modo)
+ 
 if __name__ == "__main__":
     main()
+ 
