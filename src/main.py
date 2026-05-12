@@ -9,6 +9,7 @@ from dp_selection import seleccionar_pedidos_dp
 from backtracking_ruta import calcular_ruta_tsp
 from mejoras.comparador_voraz import seleccionar_pedidos_voraz
 from mejoras.quicksort_personalizado import quicksort_multicriterio
+from tests.datos_demo import get_escenario
  
  
 def menu(modo):
@@ -52,58 +53,10 @@ def ejecutar_sistema(opcion, modo):
     #2. CREACIÓN DE DATOS (según modo)
     if modo == "1":
         print("[Modo Demostración] Datos fijos cargados.")
-        if opcion == "1":
-            n, capacidad = 5, 30
-            pedidos_totales = [
-                Pedido('P1', 'Nodo_1', 15, 84),
-                Pedido('P2', 'Nodo_2', 9,  73),
-                Pedido('P3', 'Nodo_3', 5,  72),
-                Pedido('P4', 'Nodo_4', 4,  59),
-                Pedido('P5', 'Nodo_5', 15, 61),
-            ]
-        elif opcion == "2":
-            n, capacidad = 10, 15
-            pedidos_totales = [
-                Pedido('P1',  'Nodo_1',  1,  6),
-                Pedido('P2',  'Nodo_2',  2, 10),
-                Pedido('P3',  'Nodo_3',  3, 12),
-                Pedido('P4',  'Nodo_4',  5, 17),
-                Pedido('P5',  'Nodo_5',  2,  8),
-                Pedido('P6',  'Nodo_6',  4, 14),
-                Pedido('P7',  'Nodo_7',  3, 11),
-                Pedido('P8',  'Nodo_8',  6, 19),
-                Pedido('P9',  'Nodo_9',  2,  9),
-                Pedido('P10', 'Nodo_10', 4, 13),
-            ]
-        elif opcion == "3":
-            n, capacidad = 6, 20
-            pedidos_totales = [
-                Pedido('P1', 'Nodo_1', 4,  20),
-                Pedido('P2', 'Nodo_2', 3,  15),
-                Pedido('P3', 'Nodo_3', 2,  12),
-                Pedido('P4', 'Nodo_4', 5,  18),
-                Pedido('P5', 'Nodo_5', 3,  14),
-                Pedido('P6', 'Nodo_6', 4,  16),
-            ]
-        elif opcion == "4":
-            n, capacidad = 6, 15
-            pedidos_totales = [
-                Pedido('P1', 'Nodo_1', 1,  6),
-                Pedido('P2', 'Nodo_2', 2,  10),
-                Pedido('P3', 'Nodo_3', 3,  12),
-                Pedido('P4', 'Nodo_4', 2,  8),
-                Pedido('P5', 'Nodo_5', 4,  14),
-                Pedido('P6', 'Nodo_6', 3,  9),
-            ]
-        elif opcion == "5":
-            n, capacidad = 5, 20
-            pedidos_totales = [
-                Pedido('P1', 'Nodo_1', 2,  10),
-                Pedido('P2', 'Nodo_2', 3,  14),
-                Pedido('P3', 'Nodo_3', 4,  16),
-                Pedido('P4', 'Nodo_4', 1,  7),
-                Pedido('P5', 'Nodo_5', 5,  18),
-            ]
+        demo = get_escenario(opcion)
+        n               = demo["n"]
+        capacidad       = demo["capacidad"]
+        pedidos_totales = demo["pedidos"]
         random.seed(42)
         ciudad, _ = GenerarGrafos(num_nodos=n, num_pedidos=0)
     else:  # modo == "2"

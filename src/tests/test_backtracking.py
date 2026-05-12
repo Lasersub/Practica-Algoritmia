@@ -6,6 +6,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from backtracking_ruta import calcular_ruta_tsp
 from modelos import GrafoUrbano
+from tests.datos_demo import get_escenario
 
 
 def grafo_completo_3():
