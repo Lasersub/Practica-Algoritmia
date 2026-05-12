@@ -9,7 +9,7 @@ from modelos import GrafoUrbano
 
 
 def grafo_completo_3():
-    """Triangle: A-B=1, B-C=1, A-C=2"""
+    #Genera un grafo triangular: A-B=1, B-C=1, A-C=2
     g = GrafoUrbano()
     g.agregar_arista('A', 'B', 1)
     g.agregar_arista('B', 'C', 1)
@@ -20,6 +20,7 @@ def grafo_completo_3():
 class TestCalcularRutaTSP(unittest.TestCase):
 
     def test_ruta_simple(self):
+        #Verifica que se encuentre una ruta válida que empiece y termine en el origen.
         g = grafo_completo_3()
         ruta, distancia, _ = calcular_ruta_tsp(g, 'A', ['B', 'C'])
         self.assertIsNotNone(ruta)
@@ -30,19 +31,19 @@ class TestCalcularRutaTSP(unittest.TestCase):
         self.assertLess(distancia, float('inf'))
 
     def test_sin_ruta_posible(self):
+        #Comprueba el comportamiento del sistema cuando un nodo de destino es inalcanzable.
         g = GrafoUrbano()
         g.agregar_arista('A', 'B', 1)
-        # C is isolated — no edges
+        # El nodo C está aislado, no existen aristas que lleguen a él
         g.agregar_nodo('C')
         ruta, distancia, _ = calcular_ruta_tsp(g, 'A', ['B', 'C'])
         self.assertIsNone(ruta)
         self.assertEqual(distancia, float('inf'))
 
     def test_poda_reduce_nodos(self):
-        # Ring graph A-B-C-D-E-A (all weight 1), no cross-edges.
-        # Optimal tour = 5 (ring order). Off-ring permutations pay dist=2 for
-        # any "jump", so their partial sums hit the pruning threshold before the
-        # leaf, guaranteeing at least one pruned call regardless of set order.
+        #Validación de eficiencia: Comprueba que la versión con Poda por Cota
+        #explora menos nodos que el Backtracking puro sin afectar al resultado.
+        # Grafo en anillo A-B-C-D-E-A
         g = GrafoUrbano()
         g.agregar_arista('A', 'B', 1)
         g.agregar_arista('B', 'C', 1)
@@ -52,12 +53,15 @@ class TestCalcularRutaTSP(unittest.TestCase):
 
         _, _, explorados_con_poda = calcular_ruta_tsp(g, 'A', ['B', 'C', 'D', 'E'], usar_poda=True)
         _, _, explorados_sin_poda = calcular_ruta_tsp(g, 'A', ['B', 'C', 'D', 'E'], usar_poda=False)
+        
+        # El número de llamadas recursivas debe ser menor gracias a la poda
         self.assertLess(explorados_con_poda, explorados_sin_poda)
 
     def test_grafo_disperso(self):
-        """Destinations B and C are not directly connected — requires Dijkstra via intermediate node."""
+        #Prueba de conectividad indirecta: Verifica que el algoritmo pueda encontrar
+        #rutas a través de nodos intermedios (usando Dijkstra internamente).
         g = GrafoUrbano()
-        # A -> X -> B -> Y -> C, no direct B-C edge
+        # Estructura: A -> X -> B -> Y -> C (sin conexión directa B-C)
         g.agregar_arista('A', 'X', 1)
         g.agregar_arista('X', 'B', 1)
         g.agregar_arista('B', 'Y', 1)
