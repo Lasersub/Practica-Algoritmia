@@ -35,6 +35,7 @@ def cargar_pedidos_desde_escenario(nombre_archivo):
     return [Pedido(p['id'], p.get('destino', 'Desconocido'), p['peso'], p['beneficio']) for p in lista_dicts]
  
 def ejecutar_sistema(opcion, modo):
+    tipo_ejecucion = "DEMOSTRACIÓN (Fijo)" if modo == "1" else "GENERACIÓN (Aleatorio)"
     #1. CONFIGURACIÓN
     if opcion == "1":
         nombre, n, capacidad = "basico", 5, 30
@@ -69,8 +70,8 @@ def ejecutar_sistema(opcion, modo):
         #Asignamos destino a cada pedido
         for i in range(len(pedidos_totales)):
             pedidos_totales[i].destino = f"Nodo_{i+1}"
- 
-    resumen_txt = f"ESCENARIO: {nombre.upper()} | N={n} | Capacidad={capacidad}kg\n"
+    resumen_txt = f"EJECUCIÓN: {tipo_ejecucion}\n"
+    resumen_txt += f"ESCENARIO: {nombre.upper()} | N={n} | Capacidad={capacidad}kg\n"
  
     #Mejora Quicksort
     print("\n--- PREPARACIÓN DEL CATÁLOGO (Quicksort) ---")
