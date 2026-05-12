@@ -42,7 +42,7 @@ def calcular_ruta_tsp(grafo, origen, nodos_a_visitar, usar_poda=True):
     for nodo in nodos_relevantes:
         dist_real[nodo] = dijkstra(nodo)
 
-    # Verify all required paths exist
+    #Comprueba que todos los caminos existen
     for a in nodos_relevantes:
         for b in nodos_relevantes:
             if a != b and dist_real[a][b] == float('inf'):

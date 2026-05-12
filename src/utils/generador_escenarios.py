@@ -2,9 +2,7 @@ import random
 import json
 from modelos import GrafoUrbano, GestorPedidos, Pedido
 
-# ---------------------------------------------------------
 # 1. GENERADOR RECURSIVO (Mejora Tema 1)
-# ---------------------------------------------------------
 def generador_recursivo_escenarios(n, id_actual):
     """Genera una lista de diccionarios de pedidos de forma recursiva."""
     # El caso base, cuando no quedan mas pedidos por generar
@@ -12,7 +10,6 @@ def generador_recursivo_escenarios(n, id_actual):
         return []
     
     # El caso general
-    # pasamos solo el ID, la clase Pedido ya genera peso y beneficio aleatorios.
     pedido_nuevo = Pedido(f"P{id_actual}")
     pedido_nuevo.destino = f"Nodo_{id_actual}"
     
@@ -26,10 +23,8 @@ def generador_recursivo_escenarios(n, id_actual):
     # La relacion de recurrencia
     return [datos_pedido] + generador_recursivo_escenarios(n - 1, id_actual + 1)
 
-
-# ---------------------------------------------------------
 # 2. GENERADOR MASIVO GRAFOS
-# ---------------------------------------------------------
+
 def GenerarGrafos(num_nodos=50, num_pedidos=50):
     """
     Genera un escenario masivo para pruebas de estrés.
@@ -57,10 +52,10 @@ def GenerarGrafos(num_nodos=50, num_pedidos=50):
     
     gestor = GestorPedidos()
     for dict_p in lista_diccionarios_pedidos:
-        # NUEVO: Elegimos un nodo destino al azar de nuestra ciudad
+        #Elegimos un nodo destino al azar de nuestra ciudad
         nodo_destino = random.choice(nodos_ids)
         
-        # NUEVO: Reconstruimos el objeto Pedido pasándole el destino
+        #Reconstruimos el objeto Pedido pasándole el destino
         p = Pedido(dict_p["id"], nodo_destino, dict_p["peso"], dict_p["beneficio"])
         gestor.agregar_pedido(p)
         

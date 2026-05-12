@@ -11,6 +11,7 @@ from modelos import Pedido
 class TestSeleccionarPedidosDP(unittest.TestCase):
 
     def test_seleccion_basica(self):
+        #Prueba una selección estándar donde solo caben algunos elementos.
         pedidos = [
             Pedido('P1', peso=2, beneficio=3),
             Pedido('P2', peso=3, beneficio=4),
@@ -22,6 +23,7 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(ids, {'P1', 'P2'})
 
     def test_capacidad_cero(self):
+        #Verifica que el sistema no seleccione nada si la capacidad es nula.
         pedidos = [
             Pedido('P1', peso=2, beneficio=10),
             Pedido('P2', peso=1, beneficio=5),
@@ -32,6 +34,7 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(peso, 0)
 
     def test_todos_caben(self):
+        #Caso donde la capacidad sobra y se seleccionan todos los pedidos.
         pedidos = [
             Pedido('P1', peso=1, beneficio=10),
             Pedido('P2', peso=2, beneficio=20),
@@ -43,20 +46,15 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(peso, 6)
 
     def test_beneficio_optimo_vs_voraz(self):
-        # Greedy by ratio picks P1 (ratio=3) then P2 (ratio=2) → total peso=3+2=5, beneficio=9+6=15
-        # but P2+P3 gives beneficio=6+10=16 with peso=2+4=6 — wait, let's use a classic case:
-        # P1: peso=1, beneficio=6  ratio=6
-        # P2: peso=2, beneficio=10 ratio=5
-        # P3: peso=3, beneficio=12 ratio=4  capacity=4
-        # Greedy: P1(6)+P2(10)=16, peso=3. Fits P3? 1+2+3=6>4, no. So greedy=16.
-        # DP: P2+P3=22, peso=5>4, no. P1+P3=18, peso=4. DP=18. DP wins.
+        #Caso crítico: Se comprueba que la Programación Dinámica encuentra
+        #la solución óptima global, superando la solución local del algoritmo voraz.ins.
         pedidos = [
             Pedido('P1', peso=1, beneficio=6),
             Pedido('P2', peso=2, beneficio=10),
             Pedido('P3', peso=3, beneficio=12),
         ]
         seleccionados, beneficio, _ = seleccionar_pedidos_dp(pedidos, capacidad_maxima=4)
-
+        # Lógica de simulación voraz para comparar
         greedy_sorted = sorted(pedidos, key=lambda p: p.ratio, reverse=True)
         cap = 4
         greedy_sel = []

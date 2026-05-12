@@ -3,7 +3,7 @@
 import random
 
 class Pedido:
-    # Constructor actualizado con el atributo 'destino'
+    # Constructor con todos los atributos
     def __init__(self, id_pedido, destino=None, peso=None, beneficio=None):
         self.id = id_pedido
         
@@ -16,10 +16,10 @@ class Pedido:
         # Si no nos dan beneficio, inventamos uno entre 10 y 100 €
         self.beneficio = beneficio if beneficio is not None else random.randint(10, 100)
         
-        # El cálculo del ratio se mantiene igual
+        # El cálculo del ratio
         self.ratio = self.beneficio / self.peso if self.peso > 0 else 0
     
-    # ToString actualizado
+    # ToString con los 4 atributos
     def __repr__(self):
         return f"Pedido(id={self.id}, dest={self.destino}, p={self.peso}, b={self.beneficio})"
 
