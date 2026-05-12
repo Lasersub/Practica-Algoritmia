@@ -52,10 +52,10 @@ def GenerarGrafos(num_nodos=50, num_pedidos=50):
     
     gestor = GestorPedidos()
     for dict_p in lista_diccionarios_pedidos:
-        #Elegimos un nodo destino al azar de nuestra ciudad
+        # Elegimos un nodo destino al azar de nuestra ciudad
         nodo_destino = random.choice(nodos_ids)
         
-        #Reconstruimos el objeto Pedido pasándole el destino
+        # Reconstruimos el objeto Pedido pasándole el destino
         p = Pedido(dict_p["id"], nodo_destino, dict_p["peso"], dict_p["beneficio"])
         gestor.agregar_pedido(p)
         

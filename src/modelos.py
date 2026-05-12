@@ -1,4 +1,4 @@
-#Archivo donde van a ir las clases
+# Archivo donde van a ir las clases
 
 import random
 
@@ -23,6 +23,7 @@ class Pedido:
     def __repr__(self):
         return f"Pedido(id={self.id}, dest={self.destino}, p={self.peso}, b={self.beneficio})"
 
+
 class GestorPedidos:
     def __init__(self):
         self.catalogo = [] # Inicializa la lista vacía
@@ -33,6 +34,7 @@ class GestorPedidos:
     def mostrar_pedidos(self):
         """Devuelve la representación de todos los pedidos."""
         return self.catalogo 
+
 
 class GrafoUrbano:
     def __init__(self):

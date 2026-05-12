@@ -67,13 +67,13 @@ def ejecutar_sistema(opcion, modo):
         print(f"[Sistema] Archivo {nombre_archivo} generado y guardado.")
         ciudad, _ = GenerarGrafos(num_nodos=n, num_pedidos=0)
         pedidos_totales = cargar_pedidos_desde_escenario(nombre_archivo)
-        #Asignamos destino a cada pedido
+        # Asignamos destino a cada pedido
         for i in range(len(pedidos_totales)):
             pedidos_totales[i].destino = f"Nodo_{i+1}"
     resumen_txt = f"EJECUCIÓN: {tipo_ejecucion}\n"
     resumen_txt += f"ESCENARIO: {nombre.upper()} | N={n} | Capacidad={capacidad}kg\n"
  
-    #Mejora Quicksort
+    # Mejora Quicksort
     print("\n--- PREPARACIÓN DEL CATÁLOGO (Quicksort) ---")
     print("Seleccione el criterio de prioridad para el catálogo:")
     print(" 1. Mayor Beneficio")
@@ -169,7 +169,7 @@ def ejecutar_sistema(opcion, modo):
  
     resumen_txt += f"Ruteo: {resumen_ruteo}\n"
  
-    #Guardado final en .txt
+    # Guardado final en .txt
     # Obtenemos la ruta absoluta de la carpeta donde está este main.py
     directorio_actual = os.path.dirname(os.path.abspath(__file__))
     ruta_txt = os.path.join(directorio_actual, "data", "resultados.txt")
@@ -187,7 +187,7 @@ def ejecutar_sistema(opcion, modo):
             f.write(resumen_txt)
             f.write("="*70 + "\n")
             
-            #Aseguramos que los datos pasen del buffer de Python
+            # Aseguramos que los datos pasen del buffer de Python
             # al hardware para evitar pérdida de métricas en caso de cierre inesperado.
             f.flush()
             os.fsync(f.fileno())

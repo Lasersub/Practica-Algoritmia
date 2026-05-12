@@ -12,7 +12,7 @@ from tests.datos_demo import get_escenario
 class TestSeleccionarPedidosDP(unittest.TestCase):
 
     def test_seleccion_basica(self):
-        #Prueba una selección estándar donde solo caben algunos elementos.
+        # Prueba una selección estándar donde solo caben algunos elementos.
         pedidos = [
             Pedido('P1', peso=2, beneficio=3),
             Pedido('P2', peso=3, beneficio=4),
@@ -24,7 +24,7 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(ids, {'P1', 'P2'})
 
     def test_capacidad_cero(self):
-        #Verifica que el sistema no seleccione nada si la capacidad es nula.
+        # Verifica que el sistema no seleccione nada si la capacidad es nula.
         pedidos = [
             Pedido('P1', peso=2, beneficio=10),
             Pedido('P2', peso=1, beneficio=5),
@@ -35,7 +35,7 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(peso, 0)
 
     def test_todos_caben(self):
-        #Caso donde la capacidad sobra y se seleccionan todos los pedidos.
+        # Caso donde la capacidad sobra y se seleccionan todos los pedidos.
         pedidos = [
             Pedido('P1', peso=1, beneficio=10),
             Pedido('P2', peso=2, beneficio=20),
@@ -47,8 +47,8 @@ class TestSeleccionarPedidosDP(unittest.TestCase):
         self.assertEqual(peso, 6)
 
     def test_beneficio_optimo_vs_voraz(self):
-        #Caso crítico: Se comprueba que la Programación Dinámica encuentra
-        #la solución óptima global, superando la solución local del algoritmo voraz.
+        # Caso crítico: Se comprueba que la Programación Dinámica encuentra
+        # la solución óptima global, superando la solución local del algoritmo voraz.
         demo = get_escenario("2")
         pedidos = demo["pedidos"]
         seleccionados, beneficio, _ = seleccionar_pedidos_dp(pedidos, demo["capacidad"])
